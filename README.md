@@ -33,7 +33,7 @@ Example:
 5 5
 ```
 
-This Plateau has maximum (x, y) co-ordinates of (5, 5), and is therefore a Plateau of size (6,6).
+This Plateau has maximum (x, y) co-ordinates of (5, 5), and is therefore has 6 possible x and y values (0 - 5 for each).
 
 > Assume that the lower-left coordinate is (0, 0).
 
