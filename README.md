@@ -14,10 +14,14 @@ A Rover's position is represented by x and y co-ordinates and the letters N, S, 
 
 ```
 Example
-0 0 N
+0 0 E
 ```
 
-This means the Rover is at the bottom-left corner facing in the North direction.
+This means the Rover is at the bottom-left corner facing in the East direction.
+
+In the diagram below the rover's initial position is `2 4 N`
+
+![Example Plateau](/images/Example%20plateau.jpg)
 
 > Assume that the square directly North from `(x, y)` is `(x, y + 1)`, and the square directly East from `(x, y)` is `(x + 1, y)`
 
