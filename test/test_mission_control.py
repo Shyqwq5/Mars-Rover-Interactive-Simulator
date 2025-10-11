@@ -1,6 +1,5 @@
 from src.logic_layer.mission_control import MissionControl
 from src.logic_layer.plateau import Plateau
-from src.logic_layer.rover import Rover
 from src.instruction import Instruction
 from src.compass_direction import CompassDirection
 import pytest
@@ -39,6 +38,8 @@ def test_mission_control_can_move_rover():
     new_mission.move_latest_rover([Instruction.RIGHT,Instruction.LEFT,Instruction.RIGHT,Instruction.MOVE])
     assert new_mission.rovers[next(reversed(new_mission.rovers))].direction == CompassDirection.EAST
     assert next(reversed(new_mission.rovers))== (2,2)
+
+
 
 
 
