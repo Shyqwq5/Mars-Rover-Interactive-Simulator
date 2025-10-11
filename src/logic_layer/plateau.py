@@ -5,9 +5,9 @@ class Plateau:
         self.map = self.creat_map()
 
     def creat_map(self):
-        dict = {}
+        map = set()
         for i in range(self.latitdude+1):
             for j in range(self.lontitude+1):
-                dict[(j,i)] = None
-        return dict
+                map.add((i,j))
+        return map
 
