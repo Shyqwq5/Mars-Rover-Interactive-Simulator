@@ -30,7 +30,7 @@ class MissionControl:
         self.rovers[rover_position] = new_rover
 
     def move_latest_rover(self,parsed_instruction):
-        if not self.rover:
+        if not self.rovers:
             raise ValueError('no rover!')
 
         latest_rover_position = next(reversed(self.rovers))
@@ -45,6 +45,8 @@ class MissionControl:
                 new_position = latest_rover.move(latest_rover_position)
                 if new_position in self.rovers:
                     raise ValueError(f'can not keep move! A rover in {new_position}, stay at {latest_rover_position}')
+                if new_position not in self.plateau.map:
+                    raise ValueError(f'can not keep move! At the edge of plateau, stay at {latest_rover_position}')
                 self.rovers[new_position] = latest_rover
                 del self.rovers[latest_rover_position]
                 latest_rover_position = new_position
