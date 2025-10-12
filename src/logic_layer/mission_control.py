@@ -1,6 +1,9 @@
 from src.logic_layer.plateau import Plateau
 from src.logic_layer.rover import Rover
 from src.instruction import Instruction
+from src.compass_direction import CompassDirection
+import time
+
 
 class MissionControl:
     def __init__(self):
@@ -24,6 +27,8 @@ class MissionControl:
             raise ValueError('no plateau')
         if rover_position not in self.plateau.map:
             raise ValueError('out of plateau')
+        if self.plateau.map[rover_position] != None:
+            raise ValueError(f'got {self.plateau.map[rover_position]} in {rover_position}')
         if rover_position in self.rovers :
             raise ValueError('The position is not avaliable')
         new_rover = Rover(name,parsed_rover[2])
@@ -34,31 +39,71 @@ class MissionControl:
             raise ValueError('no rover!')
 
         latest_rover_position = next(reversed(self.rovers))
-        latest_rover = self.rovers[latest_rover_position]
+
+        return self.move_a_rover_with_position(latest_rover_position,parsed_instruction)
+
+
+    def move_a_rover_with_name(self,name,parsed_instruction):
+
+        if not self.rovers:
+            raise ValueError('no rover!')
+
+        for key,value in self.rovers.items:
+            if value.name == name:
+                return self.move_a_rover_with_position(key,parsed_instruction)
+            else:
+                raise ValueError(f'no rover named {name}')
+
+
+
+    def move_a_rover_with_position(self,position,parsed_instruction):
+        if not self.rovers:
+                raise ValueError('no rover!')
+        try:
+            rover = self.rovers[position]
+        except:
+            raise ValueError(f'no rover in position {position}')
 
         for instruction in parsed_instruction:
             if instruction == Instruction.LEFT:
-                latest_rover.turn_left()
+                rover.turn_left()
             if instruction == Instruction.RIGHT:
-                latest_rover.turn_right()
+                rover.turn_right()
             if instruction == Instruction.MOVE:
-                new_position = latest_rover.move(latest_rover_position)
+                new_position = rover.move(position)
                 if new_position in self.rovers:
-                    raise ValueError(f'can not keep move! A rover in {new_position}, stay at {latest_rover_position}')
+                    raise ValueError(f'can not keep move! A rover in {new_position}, stay at {position}')
                 if new_position not in self.plateau.map:
-                    raise ValueError(f'can not keep move! At the edge of plateau, stay at {latest_rover_position}')
-                self.rovers[new_position] = latest_rover
-                del self.rovers[latest_rover_position]
-                latest_rover_position = new_position
+                    raise ValueError(f'can not keep move! At the edge of plateau, stay at {position}')
+                if self.plateau.map[new_position] != None:
+                    raise ValueError(f'got {self.plateau.map[new_position]} in {new_position}')
+                self.rovers[new_position] = rover
+                del self.rovers[position]
+                position = new_position
 
+        return [position[0],position[1],rover.direction]
 
+    def print_map(self):
 
+        symbols = {
+        CompassDirection.EAST:"▸",
+        CompassDirection.NORTH:"▴",
+        CompassDirection.WEST:"◂",
+        CompassDirection.SOUTH:"▾",
+        'rocket':"◼",
+        None:'●'
+        }
 
-
-
-
-
-
+        for j in range(self.plateau.latitdude,-1,-1):
+            for i in range(0,self.plateau.lontitude+1):
+                if (i,j) in self.rovers:
+                    symbol = symbols[self.rovers[(i,j)].direction] + ' '
+                else:
+                    symbol = symbols[self.plateau.map[(i,j)]] + ' '
+                if i == self.plateau.lontitude:
+                    print(symbol)
+                else:
+                    print(symbol,end="")
 
 
 
