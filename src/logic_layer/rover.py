@@ -22,6 +22,3 @@ class Rover:
             return (position[0]+1,position[1])
         if self.direction == CompassDirection.WEST:
             return (position[0]-1,position[1])
-
-
-
