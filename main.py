@@ -51,27 +51,3 @@ while not moved:
     except ValueError as e:
         print(e)
         new_mission.print_map()
-
-landed = False
-while not landed:
-    try:
-        land_position_input = input("Enter the rover landing position and direction, e.g., 1 2 N: ")
-        parsed_landposition =  LandPositionParser().parse_land_position(land_position_input)
-        new_mission.add_rover(parsed_landposition)
-        new_mission.print_map()
-        landed = True
-    except ValueError as e:
-        print(e)
-
-moved = False
-
-while not moved:
-    try:
-        instruction_input = input("Enter the instruction for rover, e.g., LMLMLMLMM: ")
-        parsed_instruction = InstructionParse().parse_instruction(instruction_input)
-        new_mission.move_latest_rover(parsed_instruction)
-        new_mission.print_map()
-        moved = True
-    except ValueError as e:
-        print(e)
-        new_mission.print_map()

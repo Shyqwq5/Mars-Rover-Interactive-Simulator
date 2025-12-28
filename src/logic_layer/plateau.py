@@ -4,7 +4,7 @@ class Plateau:
     def __init__(self,latitude:str,lontitude:str):
         self.latitdude =latitude
         self.lontitude = lontitude
-        self.map = self.creat_map()
+        self.map = self.creat_rough_map()
 
     def creat_map(self):
         map = {}
@@ -13,7 +13,7 @@ class Plateau:
                 map[(i,j)] = None
         return map
 
-    def creat_rough_map(self,percentage = 0.1):
+    def creat_rough_map(self,percentage = 0.2):
         map = {}
         for i in range(self.latitdude+1):
             for j in range(self.lontitude+1):
@@ -21,4 +21,5 @@ class Plateau:
                     map[(i,j)] = 'rocket'
                 else:
                     map[(i,j)] = None
+        return map
 
