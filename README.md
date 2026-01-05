@@ -1,93 +1,118 @@
-# The Mars Rover Brief
+# Mars Rover (Interactive Controls)
 
-The surface of Mars is represented by a Plateau. You can make the assumption that the Plateau is a square/rectangular grid for the purpose of this task.
+A simple Mars Rover simulator with an interactive control mode
+Set the plateau size, land a rover with an initial direction, then control it step by step using single-key commands
 
-Rovers navigate the Plateau by following a sequence of commands. They can also use their cameras and robot arms to collect photographs and samples.
+---
 
-## The Plateau
+## Requirements
 
-The Plateau is divided into a grid.
+- Python 3.10+ (recommended)
+- pip
+- A terminal that supports interactive key input
 
-## The Rover position
+---
 
-A Rover's position is represented by x and y co-ordinates and the letters N, S, W, E to represent North, South, West, East (the four cardinal compass points) respectively.
+## Setup
 
+### 1) Create a virtual environment and install dependencies
+
+From the project root:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
-Example
-0 0 E
+
+**Windows (PowerShell):**
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
 ```
 
-This means the Rover is at the bottom-left corner facing in the East direction.
+---
 
-In the diagram below the rover's initial position is `2 4 N`
+### 2) Activate the environment (if not already activated)
 
-![Example Plateau](/images/Example%20plateau.jpg)
+**macOS / Linux:**
 
-> Assume that the square directly North from `(x, y)` is `(x, y + 1)`, and the square directly East from `(x, y)` is `(x + 1, y)`
-
-## Program Inputs
-
-### First Line: Plateau Creation
-
-The first line inputted into the program represents the upper-right coordinates of the Plateau.
-
-Example:
-
+```bash
+source .venv/bin/activate
 ```
+
+**Windows (PowerShell):**
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+---
+
+## Run the project
+
+### 3) Run `main.py`
+
+**macOS / Linux / Windows:**
+
+```bash
+python main.py
+```
+
+---
+
+## How to play
+
+### 4) Set the plateau size
+
+When prompted, enter the plateau size in the following format:
+
+```text
 5 5
 ```
 
-This Plateau has maximum (x, y) co-ordinates of (5, 5), and is therefore has 6 possible x and y values (0 - 5 for each).
+---
 
-> Assume that the lower-left coordinate is (0, 0).
+### 5) Land the rover
 
-### Subsequent lines: Rover Creation & Instructions
+Enter the rover landing position and direction:
 
-Following the plateau creation, each Rover receives two lines of input. The first line of input is to land the Rover at a particular starting position, e.g.
-
-```
+```text
 1 2 N
 ```
 
-This lands the Rover at position (1,2) facing North.
+Where the direction is one of:
 
-The following line of input is a string of letters representing instructions to move the Rover around the Plateau.
+- `N` — North
+- `E` — East
+- `S` — South
+- `W` — West
 
-## Instructions
+---
 
-To move a Rover around the Plateau, a string of letters is sent to a Rover.
+### 6) Control the rover (interactive mode)
 
-| Letter | Action                                                                              |
-| ------ | ----------------------------------------------------------------------------------- |
-| L      | Spins the Rover 90 degrees Left without moving from the current coordinate point    |
-| R      | Spins the Rover 90 degrees Right without moving from the current coordinate point   |
-| M      | Moves the Rover forward by one grid point, maintaining the same heading/orientation |
+![Mars Rover Demo](images/demo.png)
 
-## Output
+Once the map is displayed, control the rover using single-key commands:
 
-For each Rover, the output represents its final position: the coordinates and where it is facing.
+- `L` — turn left
+- `R` — turn right
+- `M` — move forward
+- `Q` — quit the program
 
-## Movement Rules
+**Example:**
 
-Rovers move sequentially, this means that if multiple Rovers are being landed then the first Rover needs to finish moving first before the next one can move.
+- Press `L` to rotate left
+- Press `M` to move forward one step
 
-## Example
+⚠️ Watch out for rocks — do not crash into obstacles
 
-Given the following input:
+---
 
-```
-5 5
-1 2 N
-LMLMLMLMM
-3 3 E
-MMRMMRMRRM
-```
+## Notes
 
-This creates a plateau of size `(5,5)` and lands two rovers on it. The first lands at `(1,2)N` and this one moves `LMLMLMLMM`. The second lands at `(3,3)E` and it moves `MMRMMRMRRM`.
-
-The expected output is:
-
-```
-1 3 N
-5 1 E
-```
+- Invalid inputs will display an error message and reprint the map
+- Only `L`, `R`, `M` and `Q` are accepted during control mode
