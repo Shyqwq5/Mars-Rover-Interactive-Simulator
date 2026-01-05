@@ -86,10 +86,10 @@ class MissionControl:
     def print_map(self):
 
         symbols = {
-        CompassDirection.EAST:"▸",
-        CompassDirection.NORTH:"▴",
-        CompassDirection.WEST:"◂",
-        CompassDirection.SOUTH:"▾",
+        CompassDirection.EAST:"⮞",
+        CompassDirection.NORTH:"⮝",
+        CompassDirection.WEST:"⮜",
+        CompassDirection.SOUTH:"⮟",
         'rocket':"◼",
         None:'●'
         }
