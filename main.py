@@ -3,17 +3,15 @@ from src.compass_direction import CompassDirection
 from src.input_layer.instruction_parser import InstructionParse
 from src.input_layer.land_position_parser import LandPositionParser
 from src.input_layer.plateau_parser import PlateauParser
-
+import readchar
 from tqdm import tqdm
 import time
 
 
 
-
-
-
 for i in tqdm(range(100), desc="Processing"):
     time.sleep(0.01)
+
 
 created = False
 while not created:
@@ -39,15 +37,24 @@ while not landed:
     except ValueError as e:
         print(e)
 
-moved = False
 
-while not moved:
+print("Controls: L=turn left, R=turn right, M=move, Q=quit")
+
+while True:
     try:
-        instruction_input = input("Enter the instruction for rover, e.g., LMLMLMLMM: ")
-        parsed_instruction = InstructionParse().parse_instruction(instruction_input)
-        new_mission.move_latest_rover(parsed_instruction)
+        key = readchar.readkey().upper()
+
+        if key == "Q":
+            break
+
+        if key not in {"L", "R", "M"}:
+            continue
+
+        parsed = InstructionParse().parse_instruction(key)
+        new_mission.move_latest_rover(parsed)
+        print('')
         new_mission.print_map()
-        moved = True
+
     except ValueError as e:
         print(e)
         new_mission.print_map()
